@@ -1,0 +1,7 @@
+{
+  "python.pythonPath": "/Users/elt/.local/share/virtualenvs/AIRBNB-j3-7Ucmc/bin/python",
+  "python.linting.flake8Enabled": true,
+  "python.linting.enabled": true,
+  "python.formatting.provider": "black",
+  "python.linting.flake8Args": ["--max-line-length=88"]
+}
