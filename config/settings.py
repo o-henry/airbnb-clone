@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # 외부 패키지
-THIRD_PARTY_APPS = ["django_countries"]
+THIRD_PARTY_APPS = ["django_countries", "django_seed"]
 
 # Application definition
 DJANGO_APPS = [
@@ -129,3 +129,7 @@ STATIC_URL = "/static/"
 
 AUTH_USER_MODEL = "users.User"
 
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
+# 앞에 / 절대경로를 만들어 줍니다.
+MEDIA_URL = "/media/"

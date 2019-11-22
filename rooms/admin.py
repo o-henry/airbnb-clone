@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import mark_safe
 from . import models
 
 # Register your models here.
@@ -16,10 +17,17 @@ class ItemAdmin(admin.ModelAdmin):
         return obj.rooms.count()
 
 
+class PhotoInline(admin.TabularInline):
+
+    model = models.Photo
+
+
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
 
     """ Room Admin Definition """
+
+    inlines = (PhotoInline,)
 
     fieldsets = (
         (
@@ -50,6 +58,7 @@ class RoomAdmin(admin.ModelAdmin):
         "instant_book",
         "count_amenities",
         "count_photos",
+        "total_rating",
     )
 
     ordering = ("price",)
@@ -65,6 +74,8 @@ class RoomAdmin(admin.ModelAdmin):
         "country",
     )
 
+    raw_id_fields = ("host",)
+
     search_fields = ("^city", "^host__username")
 
     filter_horizontal = ("amenities", "facilities", "house_rules")
@@ -78,10 +89,18 @@ class RoomAdmin(admin.ModelAdmin):
     def count_photos(self, obj):
         return obj.photos.count()
 
+    count_photos.short_description = "Photo counts"
+
 
 @admin.register(models.Photo)
 class PhotoAdmin(admin.ModelAdmin):
 
     """ Photo Admin Definition """
 
-    pass
+    list_display = ("__str__", "get_thumbnail")
+
+    def get_thumbnail(self, obj):
+        # attack 으로 간주 장고에서 막는다. mark_safe를 import 해준다
+        return mark_safe(f'<img width="50px" src="{obj.file.url}" />')
+
+    get_thumbnail.short_description = "Thumbnail"

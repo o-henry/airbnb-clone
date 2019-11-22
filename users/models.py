@@ -27,7 +27,7 @@ class User(AbstractUser):
 
     CURRENCY_CHOICES = ((CURRENCY_USD, "USD"), (CURRENCY_KRW, "KRW"))
 
-    avatar = models.ImageField(blank=True)
+    avatar = models.ImageField(upload_to="avatars", blank=True)
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
     # default 가 필요한 이유.. DB column에 디폴트값을 주기 위해서
     bio = models.TextField(blank=True)
